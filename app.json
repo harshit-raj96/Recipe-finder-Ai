@@ -1,0 +1,155 @@
+{
+    "recipe_name": "Creamy Tomato Pasta",
+    "description": "A delicious and creamy tomato pasta that is quick and easy to prepare.",
+
+    "prep_time": "10 mins",
+    "cook_time": "20 mins",
+    "difficulty": "Easy",
+    "servings": "2",
+
+    "ingredients": [
+        {
+            "name": "Tomato",
+            "quantity": "3 medium",
+            "image": "/static/ingredients/tomato.png"
+        },
+        {
+            "name": "Pasta",
+            "quantity": "200 g",
+            "image": "/static/ingredients/pasta.png"
+        },
+        {
+            "name": "Onion",
+            "quantity": "1 medium",
+            "image": "/static/ingredients/onion.png"
+        },
+        {
+            "name": "Garlic",
+            "quantity": "3 cloves",
+            "image": "/static/ingredients/garlic.png"
+        },
+        {
+            "name": "Yogurt",
+            "quantity": "100 ml",
+            "image": "/static/ingredients/cream.png"
+        },
+        {
+            "name": "Olive Oil",
+            "quantity": "2 tbsp",
+            "image": "/static/ingredients/olive-oil.png"
+        },
+        {
+            "name": "Salt",
+            "quantity": "1 tsp",
+            "image": "/static/ingredients/salt.png"
+        },
+        {
+            "name": "Black Pepper",
+            "quantity": "1/2 tsp",
+            "image": "/static/ingredients/black-pepper.png"
+        }
+    ],
+
+"steps": [
+    {
+        "title": "Prepare the ingredients",
+        "description": "Chop the tomatoes and onion and keep all ingredients ready.",
+        "image": "static/step/cut the onion.png"
+    },
+    {
+        "title": "Cook the pasta",
+        "description": "Boil the pasta in salted water until tender.",
+        "image": "static/step/cook pasta.png"
+    },
+    {
+        "title": "Prepare the tomato sauce",
+        "description": "Cook tomatoes, onion and garlic in olive oil until soft and fragrant.",
+        "image": "static/step/prepare-tomato-sauce.png"
+    },
+    {
+        "title": "Combine pasta and sauce",
+        "description": "Add the cooked pasta to the tomato sauce and mix everything well.",
+        "image": "static/step/combine-pasta-sauce.png"
+    },
+    {
+        "title": "Add cream and seasoning",
+        "description": "Add cream, salt and black pepper and cook until the sauce becomes creamy.",
+        "image": "static/step/add-cream-seasoning.png"
+    },
+    {
+        "title": "Garnish and serve",
+        "description": "Garnish with fresh basil and grated cheese, then serve the pasta hot.",
+        "image": "static/step/serve pasta.png"
+    }
+],
+
+    "tips": [
+        "Use fresh tomatoes for better flavour.",
+        "Do not overcook the pasta.",
+        "Adjust seasoning according to your taste."
+    ],
+
+    "benefits": [
+        "Provides carbohydrates for energy.",
+        "Tomatoes contain antioxidants.",
+        "Can be made with fresh vegetables."
+    ],
+
+    "nutrition": {
+        "calories": "320 kcal",
+        "protein": "10 g",
+        "carbohydrates": "42 g",
+        "fat": "12 g",
+        "fiber": "5 g"
+    },
+
+ "variations": [
+    {
+        "name": "Spicy Tomato Pasta",
+        "description": "Add chilli flakes and extra herbs for a spicy flavour.",
+        "image": "static/variations/tomato-pasta.png"
+    },
+    {
+        "name": "Cheesy Tomato Pasta",
+        "description": "Add grated cheese for a rich and cheesy version.",
+        "image": "static/variations/Cheesy Tomato Pasta.png"
+    },
+    {
+        "name": "Creamy Garlic Pasta",
+        "description": "Add extra garlic and cream for a smooth, creamy flavour.",
+        "image": "static/variations/Creamy Garlic Pasta.png"
+    },
+    {
+        "name": "Vegetable Tomato Pasta",
+        "description": "Add fresh vegetables like bell peppers, broccoli and corn.",
+        "image": "static/variations/Vegetable Tomato Pasta.png"
+    }
+],
+    "similar_recipes": [
+        {
+            "name": "Arrabiata Pasta",
+            "description": "A spicy tomato-based pasta.",
+            "image": "static/similar/Arrabiata Pasta.png"
+        },
+        {
+            "name": "Creamy Garlic Pasta",
+            "description": "A creamy pasta with garlic and herbs.",
+            "image": "static/similar/Creamy Garlic Pasta.png"
+        },
+        {
+            "name": "Penne Alfredo",
+            "description": "Creamy Alfredo sauce with penne pasta.",
+            "image": "static/similar/Pesto Pasta.png"
+        },
+        {
+            "name": "Pesto Pasta",
+            "description": "Pasta tossed with fresh basil pesto.",
+            "image": "static/similar/penne alfedo.png"
+        },
+        {
+            "name": "Spicy Tomato Pasta",
+            "description": "A flavorful spicy tomato pasta.",
+            "image": "static/similar/spicy tomato pasta.png"
+        }
+    ]
+}    

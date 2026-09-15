@@ -60,7 +60,7 @@
 
             <div class="hero-image-card">
 
-                <img id="foodImage" src="{{url_for('static', filename='images/recipeposter.jpeg')}}" alt="Food recipe">
+                <img id="foodImage" src="{{ recipe.main_image if recipe.main_image else  url_for('static', filename='images/recipeposter.jpeg')}}" alt="{{recipe.recipe_name}}">
 
                 <form action="/upload" method="POST" enctype="multipart/form-data">
 
@@ -77,376 +77,269 @@
                     </button>
 
                 </form>
+            </div>
+
+
+            <!-- RECIPE TITLE -->
+
+            <section class="recipe-intro">
+
+                <h1>
+                    {{ recipe.recipe_name }}
+                </h1>
+
+                <p>
+                    {{recipe.description}}
+                </p>
+
+            </section>
+
+
+
+            <!-- STATS -->
+
+            <section class="recipe-stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◷
+                    </div>
+
+                    <span>Prep Time</span>
+
+                    <strong>
+                        {{recipe.prep_time}}
+                    </strong>
+
                 </div>
 
 
-                <!-- RECIPE TITLE -->
+                <div class="stat-card">
 
-                <section class="recipe-intro">
+                    <div class="stat-icon orange">
+                        ▣
+                    </div>
 
-                    <h1>
-                        Healthy Brussel Sprout Salad
-                    </h1>
+                    <span>Cook Time</span>
+
+                    <strong>
+                        {{recipe.cook_time}}
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ▮
+                    </div>
+
+                    <span>Difficulty</span>
+
+                    <strong>
+                        {{recipe.difficulty}}
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🍴
+                    </div>
+
+                    <span>Servings</span>
+
+                    <strong>
+                        {{recipe.servings}}
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- WHAT CAN BE MADE -->
+
+            <section class="content-card">
+
+                <div class="section-heading">
+
+                    <h2>
+                        🌱 What Can Be Made With This?
+                    </h2>
 
                     <p>
-                        A fresh, crunchy and nutritious salad made
-                        with brussel sprouts, vegetables, nuts,
-                        berries and cheese. Perfect for a healthy meal!
+                        You can make these variations using similar ingredients.
                     </p>
 
-                </section>
-                
+                </div>
 
 
-                <!-- STATS -->
+                <div class="variation-grid">
 
-                <section class="recipe-stats">
+                    {% for variation in recipe.variations %}
 
-                    <div class="stat-card">
+                    <div class="variation-card">
 
-                        <div class="stat-icon">
-                            ◷
-                        </div>
+                        <img src="{{ variation.image }}" alt="{{ variation.name }}">
 
-                        <span>Prep Time</span>
+                        <h3>{{ variation.name }}</h3>
 
-                        <strong>
-                            15 mins
-                        </strong>
+                        <p>{{ variation.description }}</p>
 
                     </div>
 
+                    {% endfor %}
 
-                    <div class="stat-card">
+                </div>
 
-                        <div class="stat-icon orange">
-                            ▣
-                        </div>
-
-                        <span>Cook Time</span>
-
-                        <strong>
-                            10 mins
-                        </strong>
-
-                    </div>
+            </section>
 
 
-                    <div class="stat-card">
 
-                        <div class="stat-icon">
-                            ▮
-                        </div>
+            <!-- NUTRITION -->
+            {% if recipe.get('nutrition') %}
 
-                        <span>Difficulty</span>
+            <section class="content-card">
 
-                        <strong>
-                            Easy
-                        </strong>
+                <div class="nutrition-title-row">
 
-                    </div>
+                    <h2>
+                        🌿 Nutritional Information
+                    </h2>
 
+                    <span>
+                        (Per Serving)
+                    </span>
 
-                    <div class="stat-card">
+                    <button>
+                        Show Full Nutrition Facts ↓
+                    </button>
 
-                        <div class="stat-icon">
-                            🍴
-                        </div>
-
-                        <span>Servings</span>
-
-                        <strong>
-                            2-3
-                        </strong>
-
-                    </div>
-
-                </section>
+                </div>
 
 
-                <!-- WHAT CAN BE MADE -->
+                <div class="nutrition-grid">
 
-                <section class="content-card">
-
-                    <div class="section-heading">
-
-                        <h2>
-                            🌱 What Can Be Made With This?
-                        </h2>
-
-                        <p>
-                            You can make these variations using similar ingredients.
-                        </p>
-
-                    </div>
-
-
-                    <div class="variation-grid">
-
-                        <article class="variation-card">
-
-                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=80"
-                                alt="Warm Brussel Sprout Bowl">
-
-                            <h3>
-                                Warm Brussel<br>
-                                Sprout Bowl
-                            </h3>
-
-                        </article>
-
-
-                        <article class="variation-card">
-
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80"
-                                alt="Brussel Sprout Stir Fry">
-
-                            <h3>
-                                Brussel Sprout<br>
-                                Stir Fry
-                            </h3>
-
-                        </article>
-
-
-                        <article class="variation-card">
-
-                            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80"
-                                alt="Roasted Veg Quinoa Bowl">
-
-                            <h3>
-                                Roasted Veg<br>
-                                Quinoa Bowl
-                            </h3>
-
-                        </article>
-
-
-                        <article class="variation-card">
-
-                            <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=500&q=80"
-                                alt="Brussel Sprout Wrap">
-
-                            <h3>
-                                Brussel Sprout<br>
-                                Wrap
-                            </h3>
-
-                        </article>
-
-                    </div>
-
-                </section>
-
-
-                <!-- NUTRITION -->
-
-                <section class="content-card">
-
-                    <div class="nutrition-title-row">
-
-                        <h2>
-                            🌿 Nutritional Information
-                        </h2>
-
-                        <span>
-                            (Per Serving)
+                    <div class="nutrition-card">
+                        <span class="nutrition-icon fire">
+                            ♨
                         </span>
 
-                        <button>
-                            Show Full Nutrition Facts ↓
-                        </button>
+                        <small>
+                            Calories
+                        </small>
 
+                        <strong>
+                            {{ recipe.nutrition.calories }}
+                        </strong>
                     </div>
 
 
-                    <div class="nutrition-grid">
+                    <div class="nutrition-card">
+                        <span class="nutrition-icon">
+                            ♧
+                        </span>
 
-                        <div class="nutrition-card">
-                            <span class="nutrition-icon fire">
-                                ♨
-                            </span>
+                        <small>
+                            Protein
+                        </small>
 
-                            <small>
-                                Calories
-                            </small>
-
-                            <strong>
-                                320 kcal
-                            </strong>
-                        </div>
-
-
-                        <div class="nutrition-card">
-                            <span class="nutrition-icon">
-                                ♧
-                            </span>
-
-                            <small>
-                                Protein
-                            </small>
-
-                            <strong>
-                                12 g
-                            </strong>
-                        </div>
-
-
-                        <div class="nutrition-card">
-                            <span class="nutrition-icon">
-                                ▥
-                            </span>
-
-                            <small>
-                                Carbs
-                            </small>
-
-                            <strong>
-                                28 g
-                            </strong>
-                        </div>
-
-
-                        <div class="nutrition-card">
-                            <span class="nutrition-icon">
-                                ♧
-                            </span>
-
-                            <small>
-                                Fats
-                            </small>
-
-                            <strong>
-                                18 g
-                            </strong>
-                        </div>
-
-
-                        <div class="nutrition-card">
-                            <span class="nutrition-icon">
-                                🌿
-                            </span>
-
-                            <small>
-                                Fiber
-                            </small>
-
-                            <strong>
-                                7 g
-                            </strong>
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- SIMILAR RECIPES -->
-
-                <section class="content-card">
-
-                    <div class="section-heading">
-
-                        <h2>
-                            🌿 Similar Recipes You Might Like
-                        </h2>
-
+                        <strong>
+                            {{ recipe.nutrition.protein }}
+                        </strong>
                     </div>
 
 
-                    <div class="similar-grid">
+                    <div class="nutrition-card">
+                        <span class="nutrition-icon">
+                            ▥
+                        </span>
 
-                        <article class="similar-card">
+                        <small>
+                            Carbs
+                        </small>
 
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80"
-                                alt="Quinoa Veg Salad">
-
-                            <h3>
-                                Quinoa Veg Salad
-                            </h3>
-
-                            <p>
-                                ★★★★★
-                                <span>4.5 (120)</span>
-                            </p>
-
-                        </article>
-
-
-                        <article class="similar-card">
-
-                            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80"
-                                alt="Avocado Veg Salad">
-
-                            <h3>
-                                Avocado Veg Salad
-                            </h3>
-
-                            <p>
-                                ★★★★★
-                                <span>4.4 (98)</span>
-                            </p>
-
-                        </article>
-
-
-                        <article class="similar-card">
-
-                            <img src="https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?auto=format&fit=crop&w=500&q=80"
-                                alt="Broccoli Almond Salad">
-
-                            <h3>
-                                Broccoli Almond Salad
-                            </h3>
-
-                            <p>
-                                ★★★★★
-                                <span>4.6 (150)</span>
-                            </p>
-
-                        </article>
-
-
-                        <article class="similar-card">
-
-                            <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=500&q=80"
-                                alt="Kale Berry Salad">
-
-                            <h3>
-                                Kale & Berry Salad
-                            </h3>
-
-                            <p>
-                                ★★★★☆
-                                <span>4.3 (87)</span>
-                            </p>
-
-                        </article>
-
-
-                        <article class="similar-card">
-
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80"
-                                alt="Chickpea Veg Bowl">
-
-                            <h3>
-                                Chickpea Veg Bowl
-                            </h3>
-
-                            <p>
-                                ★★★★★
-                                <span>4.5 (110)</span>
-                            </p>
-
-                        </article>
-
+                        <strong>
+                            {{ recipe.nutrition.carbohydrates }}
+                        </strong>
                     </div>
 
-                </section>
+
+                    <div class="nutrition-card">
+                        <span class="nutrition-icon">
+                            ♧
+                        </span>
+
+                        <small>
+                            Fats
+                        </small>
+
+                        <strong>
+                            {{ recipe.nutrition.fat }}
+                        </strong>
+                    </div>
+
+
+                    <div class="nutrition-card">
+                        <span class="nutrition-icon">
+                            🌿
+                        </span>
+
+                        <small>
+                            Fiber
+                        </small>
+
+                        <strong>
+                            {{ recipe.nutrition.fiber }}
+                        </strong>
+                    </div>
+
+
+
+            </section>
+            {% endif %}
+
+            <!-- SIMILAR RECIPES -->
+
+            <section class="content-card">
+
+                <div class="section-heading">
+
+                    <h2>
+                        🌿 Similar Recipes You Might Like
+                    </h2>
+
+                </div>
+
+
+                <div class="similar-grid">
+                    {% for similar in recipe.similar_recipes %}
+
+                    <article class="similar-card">
+
+                        <img src="{{ similar.image }}" alt="{{ similar.name }}">
+
+                        <h3>
+                            {{ similar.name }}
+                        </h3>
+
+                        <p>
+                            ⭐⭐⭐⭐⭐
+                            <span>4.6 (250)</span>
+                        </p>
+
+                    </article>
+
+                    {% endfor %}
+                </DIV>
+            </section>
 
         </section>
-
-
         <!-- ================= RIGHT COLUMN ================= -->
 
         <aside class="right-column">
@@ -511,149 +404,23 @@
                     <div class="ingredients-grid">
 
 
+                        {% for ingredient in recipe.ingredients %}
+
                         <div class="ingredient-card">
 
-                            <img src="https://images.unsplash.com/photo-1438118907704-7718ee9a191a?auto=format&fit=crop&w=200&q=80"
-                                alt="Brussel Sprouts">
+                            <img src="{{ ingredient.image }}" alt="{{ ingredient.name }}">
 
                             <div>
-
-                                <h3>
-                                    Brussel Sprouts
-                                </h3>
-
-                                <p>
-                                    5 cups
-                                </p>
-
+                                <h3>{{ ingredient.name }}</h3>
+                                <p>{{ ingredient.quantity }}</p>
                             </div>
 
                         </div>
 
-
-                        <div class="ingredient-card">
-
-                            <img src="https://images.unsplash.com/photo-1590540179912-4b5c2f9a0f8d?auto=format&fit=crop&w=200&q=80"
-                                alt="Dried Berries">
-
-                            <div>
-
-                                <h3>
-                                    Dried Berries
-                                </h3>
-
-                                <p>
-                                    1/4 cup
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="ingredient-card">
-
-                            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=200&q=80"
-                                alt="Olive Oil">
-
-                            <div>
-
-                                <h3>
-                                    Olive Oil
-                                </h3>
-
-                                <p>
-                                    1/2 cup
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="ingredient-card">
-
-                            <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=200&q=80"
-                                alt="Cheese">
-
-                            <div>
-
-                                <h3>
-                                    Shaved Cheese
-                                </h3>
-
-                                <p>
-                                    1/3 cup
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="ingredient-card">
-
-                            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=200&q=80"
-                                alt="Lemon">
-
-                            <div>
-
-                                <h3>
-                                    Lemon Juice
-                                </h3>
-
-                                <p>
-                                    1/2 cup
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="ingredient-card">
-
-                            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=200&q=80"
-                                alt="Salt and Pepper">
-
-                            <div>
-
-                                <h3>
-                                    Salt & Pepper
-                                </h3>
-
-                                <p>
-                                    To taste
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="ingredient-card">
-
-                            <img src="https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=200&q=80"
-                                alt="Walnuts">
-
-                            <div>
-
-                                <h3>
-                                    Roasted Walnuts
-                                </h3>
-
-                                <p>
-                                    1 cup
-                                </p>
-
-                            </div>
-
-                        </div>
+                        {% endfor %}
 
                     </div>
-
-                </div>
-
+                </dIV>
 
                 <!-- ================= STEPS ================= -->
 
@@ -674,366 +441,161 @@
 
                     <div class="steps-list">
 
+                        {% for step in recipe.steps %}
+                            <div class="step-card">
 
-                        <div class="step-card">
+                                <span class="step-number">
+                                {{ loop.index }}
+                                </span>
 
-                            <span class="step-number">
-                                1
-                            </span>
+                               <img src="{{ step.image }}" alt="{{ step.title }}">
 
-                            <img src="https://images.unsplash.com/photo-1593504049359-74330189a345?auto=format&fit=crop&w=300&q=80"
-                                alt="Prepare">
+                              <div>
+                                <h3>{{ step.title }}</h3>
+                                <p>{{ step.description }}</p>
+                              </div>
 
-                            <div>
+                            </div>
+                        {% endfor %}
 
-                                <h3>
-                                    Prepare Brussel Sprouts
-                                </h3>
+                    </DIV>
+                </div>
+
+
+
+                    <!-- ================= TIPS ================= -->
+
+                    <div class="tab-content" id="tips">
+
+                        <div class="panel-heading">
+
+                            <h2>
+                                💡 Cooking Tips
+                            </h2>
+
+                            <p>
+                                Helpful tips for better results.
+                            </p>
+
+                        </div>
+                        <div class="tips-list">
+                            {% for tip in recipe.tips %}
+                               <div class="tip-card">
+                                  <p> {{tip}} </p>
+                               </div>
+                            {% endfor %}
+
+
+                        </div>
+                        <!-- ================= BENEFITS ================= -->
+
+                        <div class="tab-content" id="benefits">
+
+                            <div class="panel-heading">
+
+                                <h2>
+                                    ♡ Health Benefits
+                                </h2>
 
                                 <p>
-                                    Slice the brussel sprouts
-                                    into thin pieces.
+                                    Benefits of the ingredients
+                                    used in this recipe.
                                 </p>
 
                             </div>
-
                         </div>
 
+                        <div class="benefits-list">
+                            {% for benefit in recipe.benefits %}
+                            <div class=" benefit-card">
+                                <p> {{ benefit}} </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-                        <div class="step-card">
 
-                            <span class="step-number">
-                                2
-                            </span>
+                        <section class="quick-info">
 
-                            <img src="https://images.unsplash.com/photo-1572449043416-55f4685c9bb7?auto=format&fit=crop&w=300&q=80"
-                                alt="Wash">
+                            <!-- COOKING TIPS -->
+                            <div class="quick-card tips-quick">
 
-                            <div>
+                                <div class="quick-title">
+                                    <span class="quick-icon">💡</span>
 
-                                <h3>
-                                    Wash & Dry
-                                </h3>
+                                    <h2>Cooking Tips</h2>
+                                </div>
 
-                                <p>
-                                    Wash the vegetables thoroughly
-                                    and let them dry.
-                                </p>
+                                <ul>
+                                    <li>Use fresh vegetables for better taste.</li>
+                                    <li>Adjust seasoning according to your taste.</li>
+                                    <li>Add protein according to your preference.</li>
+                                    <li>Lightly roast vegetables for a warm version.</li>
+                                </ul>
 
                             </div>
 
-                        </div>
 
+                            <!-- HEALTH BENEFITS -->
+                            <div class="quick-card benefits-quick">
 
-                        <div class="step-card">
+                                <div class="quick-title">
+                                    <span class="quick-icon">❤️</span>
 
-                            <span class="step-number">
-                                3
-                            </span>
+                                    <h2>Health Benefits</h2>
+                                </div>
 
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&q=80"
-                                alt="Mix">
-
-                            <div>
-
-                                <h3>
-                                    Mix Ingredients
-                                </h3>
-
-                                <p>
-                                    Add vegetables, walnuts,
-                                    berries and cheese.
-                                </p>
+                                <ul>
+                                    <li>Rich in vitamins and minerals.</li>
+                                    <li>Good source of dietary fiber.</li>
+                                    <li>Contains antioxidants.</li>
+                                    <li>Provides healthy fats.</li>
+                                </ul>
 
                             </div>
 
+                        </section>
+
+
+                        <!-- SERVING SUGGESTIONS -->
+
+                        <div class="recipe-extra-card">
+
+                            <h2>🍽️ Serving Suggestions</h2>
+
+                            <ul>
+                                <li>Serve fresh immediately after preparation.</li>
+                                <li>Perfect for lunch, dinner or a light meal.</li>
+                                <li>Pair with grilled vegetables or protein.</li>
+                                <li>Keep refrigerated if you want to serve it later.</li>
+                            </ul>
+
                         </div>
 
 
-                        <div class="step-card">
+                        <!-- SMALL RECIPE SUMMARY -->
 
-                            <span class="step-number">
-                                4
-                            </span>
-
-                            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=300&q=80"
-                                alt="Season">
+                        <div class="recipe-summary">
 
                             <div>
+                                <span>🔥</span>
+                                <strong>320 kcal</strong>
+                                <small>Per Serving</small>
+                            </div>
 
-                                <h3>
-                                    Season
-                                </h3>
+                            <div>
+                                <span>⏱</span>
+                                <strong>25 mins</strong>
+                                <small>Total Time</small>
+                            </div>
 
-                                <p>
-                                    Add salt and pepper
-                                    according to taste.
-                                </p>
-
+                            <div>
+                                <span>⭐</span>
+                                <strong>4.8/5</strong>
+                                <small>Recipe Rating</small>
                             </div>
 
                         </div>
-
-
-                        <div class="step-card">
-
-                            <span class="step-number">
-                                5
-                            </span>
-
-                            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=300&q=80"
-                                alt="Toss">
-
-                            <div>
-
-                                <h3>
-                                    Drizzle & Toss
-                                </h3>
-
-                                <p>
-                                    Add olive oil and gently
-                                    toss everything together.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="step-card">
-
-                            <span class="step-number">
-                                6
-                            </span>
-
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&q=80"
-                                alt="Serve">
-
-                            <div>
-
-                                <h3>
-                                    Serve
-                                </h3>
-
-                                <p>
-                                    Serve fresh and enjoy
-                                    your healthy salad.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ================= TIPS ================= -->
-
-                <div class="tab-content" id="tips">
-
-                    <div class="panel-heading">
-
-                        <h2>
-                            💡 Cooking Tips
-                        </h2>
-
-                        <p>
-                            Helpful tips for better results.
-                        </p>
-
-                    </div>
-
-
-                    <div class="tips-list">
-
-                        <div class="tip-card">
-                            <span>✓</span>
-
-                            <p>
-                                Use fresh vegetables for
-                                better taste.
-                            </p>
-                        </div>
-
-
-                        <div class="tip-card">
-                            <span>✓</span>
-
-                            <p>
-                                Adjust seasoning according
-                                to your taste.
-                            </p>
-                        </div>
-
-
-                        <div class="tip-card">
-                            <span>✓</span>
-
-                            <p>
-                                Add protein according
-                                to your preference.
-                            </p>
-                        </div>
-
-
-                        <div class="tip-card">
-                            <span>✓</span>
-
-                            <p>
-                                Lightly roast the vegetables
-                                for a warm version.
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ================= BENEFITS ================= -->
-
-                <div class="tab-content" id="benefits">
-
-                    <div class="panel-heading">
-
-                        <h2>
-                            ♡ Health Benefits
-                        </h2>
-
-                        <p>
-                            Benefits of the ingredients
-                            used in this recipe.
-                        </p>
-
-                    </div>
-
-
-                    <div class="benefits-list">
-
-                        <div class="benefit-card">
-                            <span>✓</span>
-
-                            <p>
-                                Rich in vitamins and minerals.
-                            </p>
-                        </div>
-
-
-                        <div class="benefit-card">
-                            <span>✓</span>
-
-                            <p>
-                                Good source of dietary fiber.
-                            </p>
-                        </div>
-
-
-                        <div class="benefit-card">
-                            <span>✓</span>
-
-                            <p>
-                                Contains antioxidants.
-                            </p>
-                        </div>
-
-
-                        <div class="benefit-card">
-                            <span>✓</span>
-
-                            <p>
-                                Provides healthy fats.
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <section class="quick-info">
-
-                <!-- COOKING TIPS -->
-                <div class="quick-card tips-quick">
-
-                    <div class="quick-title">
-                        <span class="quick-icon">💡</span>
-
-                        <h2>Cooking Tips</h2>
-                    </div>
-
-                    <ul>
-                        <li>Use fresh vegetables for better taste.</li>
-                        <li>Adjust seasoning according to your taste.</li>
-                        <li>Add protein according to your preference.</li>
-                        <li>Lightly roast vegetables for a warm version.</li>
-                    </ul>
-
-                </div>
-
-
-                <!-- HEALTH BENEFITS -->
-                <div class="quick-card benefits-quick">
-
-                    <div class="quick-title">
-                        <span class="quick-icon">❤️</span>
-
-                        <h2>Health Benefits</h2>
-                    </div>
-
-                    <ul>
-                        <li>Rich in vitamins and minerals.</li>
-                        <li>Good source of dietary fiber.</li>
-                        <li>Contains antioxidants.</li>
-                        <li>Provides healthy fats.</li>
-                    </ul>
-
-                </div>
-
-            </section>
-
-
-            <!-- SERVING SUGGESTIONS -->
-
-            <div class="recipe-extra-card">
-
-                <h2>🍽️ Serving Suggestions</h2>
-
-                <ul>
-                    <li>Serve fresh immediately after preparation.</li>
-                    <li>Perfect for lunch, dinner or a light meal.</li>
-                    <li>Pair with grilled vegetables or protein.</li>
-                    <li>Keep refrigerated if you want to serve it later.</li>
-                </ul>
-
-            </div>
-
-
-            <!-- SMALL RECIPE SUMMARY -->
-
-            <div class="recipe-summary">
-
-                <div>
-                    <span>🔥</span>
-                    <strong>320 kcal</strong>
-                    <small>Per Serving</small>
-                </div>
-
-                <div>
-                    <span>⏱</span>
-                    <strong>25 mins</strong>
-                    <small>Total Time</small>
-                </div>
-
-                <div>
-                    <span>⭐</span>
-                    <strong>4.8/5</strong>
-                    <small>Recipe Rating</small>
-                </div>
-
-            </div>
 
         </aside>
 
