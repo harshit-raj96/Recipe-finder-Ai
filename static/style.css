@@ -201,7 +201,7 @@ body {
 
     align-items: start;
 } */
- .main-container {
+.main-container {
     width: 94%;
     max-width: 1450px;
     margin: 20px auto 30px;
@@ -212,6 +212,7 @@ body {
 
     align-items: start;
 }
+
 .left-column {
     width: 100%;
     min-width: 0;
@@ -245,28 +246,13 @@ body {
     height: 100%;
 
     object-fit: cover;
+    object-position: center;
 
     display: block;
 }
 
 
-.hero-upload-btn {
-    position: absolute;
 
-    bottom: 18px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    padding: 12px 25px;
-
-    border-radius: 9px;
-
-    font-size: 14px;
-
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
 form button[type="submit"] {
     position: absolute;
 
@@ -299,10 +285,11 @@ form button[type="submit"] {
     border-radius: 9px;
     font-size: 14px;
 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 
     z-index: 10;
 }
+
 
 /* ================= INTRO ================= */
 
@@ -336,7 +323,7 @@ form button[type="submit"] {
 .recipe-stats {
     display: grid;
 
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 10px;
 
@@ -429,7 +416,7 @@ form button[type="submit"] {
 .variation-grid {
     display: grid;
 
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 9px;
 }
@@ -517,7 +504,7 @@ form button[type="submit"] {
 .nutrition-grid {
     display: grid;
 
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
 
     gap: 8px;
 }
@@ -571,7 +558,7 @@ form button[type="submit"] {
 .similar-grid {
     display: grid;
 
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
 
     gap: 8px;
 }
@@ -766,7 +753,7 @@ form button[type="submit"] {
 .ingredient-card:hover {
     transform: translateY(-2px);
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .ingredient-card img {
@@ -1214,22 +1201,22 @@ form button[type="submit"] {
 
 
     .recipe-stats {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
 
     .variation-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
 
     .nutrition-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
 
     .similar-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
 

@@ -60,7 +60,10 @@
 
             <div class="hero-image-card">
 
-                <img id="foodImage" src="{{ recipe.main_image if recipe.main_image else  url_for('static', filename='images/recipeposter.jpeg')}}" alt="{{recipe.recipe_name}}">
+                <img id="foodImage"
+                    src="{{ recipe.main_image if recipe.main_image else  url_for('static', filename='images/recipeposter.jpeg')}}"
+                    alt="{{recipe.recipe_name}}">
+
 
                 <form action="/upload" method="POST" enctype="multipart/form-data">
 
@@ -442,20 +445,20 @@
                     <div class="steps-list">
 
                         {% for step in recipe.steps %}
-                            <div class="step-card">
+                        <div class="step-card">
 
-                                <span class="step-number">
+                            <span class="step-number">
                                 {{ loop.index }}
-                                </span>
+                            </span>
 
-                               <img src="{{ step.image }}" alt="{{ step.title }}">
+                            <img src="{{ step.image }}" alt="{{ step.title }}">
 
-                              <div>
+                            <div>
                                 <h3>{{ step.title }}</h3>
                                 <p>{{ step.description }}</p>
-                              </div>
-
                             </div>
+
+                        </div>
                         {% endfor %}
 
                     </DIV>
@@ -463,139 +466,139 @@
 
 
 
-                    <!-- ================= TIPS ================= -->
+                <!-- ================= TIPS ================= -->
 
-                    <div class="tab-content" id="tips">
+                <div class="tab-content" id="tips">
+
+                    <div class="panel-heading">
+
+                        <h2>
+                            💡 Cooking Tips
+                        </h2>
+
+                        <p>
+                            Helpful tips for better results.
+                        </p>
+
+                    </div>
+                    <div class="tips-list">
+                        {% for tip in recipe.tips %}
+                        <div class="tip-card">
+                            <p> {{tip}} </p>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+                    <!-- ================= BENEFITS ================= -->
+
+                    <div class="tab-content" id="benefits">
 
                         <div class="panel-heading">
 
                             <h2>
-                                💡 Cooking Tips
+                                ♡ Health Benefits
                             </h2>
 
                             <p>
-                                Helpful tips for better results.
+                                Benefits of the ingredients
+                                used in this recipe.
                             </p>
 
                         </div>
-                        <div class="tips-list">
-                            {% for tip in recipe.tips %}
-                               <div class="tip-card">
-                                  <p> {{tip}} </p>
-                               </div>
-                            {% endfor %}
+                    </div>
 
-
+                    <div class="benefits-list">
+                        {% for benefit in recipe.benefits %}
+                        <div class=" benefit-card">
+                            <p> {{ benefit}} </p>
                         </div>
-                        <!-- ================= BENEFITS ================= -->
+                        {% endfor %}
+                    </div>
+                </div>
 
-                        <div class="tab-content" id="benefits">
 
-                            <div class="panel-heading">
+                <section class="quick-info">
 
-                                <h2>
-                                    ♡ Health Benefits
-                                </h2>
+                    <!-- COOKING TIPS -->
+                    <div class="quick-card tips-quick">
 
-                                <p>
-                                    Benefits of the ingredients
-                                    used in this recipe.
-                                </p>
+                        <div class="quick-title">
+                            <span class="quick-icon">💡</span>
 
-                            </div>
+                            <h2>Cooking Tips</h2>
                         </div>
 
-                        <div class="benefits-list">
-                            {% for benefit in recipe.benefits %}
-                            <div class=" benefit-card">
-                                <p> {{ benefit}} </p>
-                            </div>
-                            {% endfor %}
-                        </div>
+                        <ul>
+                            <li>Use fresh vegetables for better taste.</li>
+                            <li>Adjust seasoning according to your taste.</li>
+                            <li>Add protein according to your preference.</li>
+                            <li>Lightly roast vegetables for a warm version.</li>
+                        </ul>
+
                     </div>
 
 
-                        <section class="quick-info">
+                    <!-- HEALTH BENEFITS -->
+                    <div class="quick-card benefits-quick">
 
-                            <!-- COOKING TIPS -->
-                            <div class="quick-card tips-quick">
+                        <div class="quick-title">
+                            <span class="quick-icon">❤️</span>
 
-                                <div class="quick-title">
-                                    <span class="quick-icon">💡</span>
-
-                                    <h2>Cooking Tips</h2>
-                                </div>
-
-                                <ul>
-                                    <li>Use fresh vegetables for better taste.</li>
-                                    <li>Adjust seasoning according to your taste.</li>
-                                    <li>Add protein according to your preference.</li>
-                                    <li>Lightly roast vegetables for a warm version.</li>
-                                </ul>
-
-                            </div>
-
-
-                            <!-- HEALTH BENEFITS -->
-                            <div class="quick-card benefits-quick">
-
-                                <div class="quick-title">
-                                    <span class="quick-icon">❤️</span>
-
-                                    <h2>Health Benefits</h2>
-                                </div>
-
-                                <ul>
-                                    <li>Rich in vitamins and minerals.</li>
-                                    <li>Good source of dietary fiber.</li>
-                                    <li>Contains antioxidants.</li>
-                                    <li>Provides healthy fats.</li>
-                                </ul>
-
-                            </div>
-
-                        </section>
-
-
-                        <!-- SERVING SUGGESTIONS -->
-
-                        <div class="recipe-extra-card">
-
-                            <h2>🍽️ Serving Suggestions</h2>
-
-                            <ul>
-                                <li>Serve fresh immediately after preparation.</li>
-                                <li>Perfect for lunch, dinner or a light meal.</li>
-                                <li>Pair with grilled vegetables or protein.</li>
-                                <li>Keep refrigerated if you want to serve it later.</li>
-                            </ul>
-
+                            <h2>Health Benefits</h2>
                         </div>
 
+                        <ul>
+                            <li>Rich in vitamins and minerals.</li>
+                            <li>Good source of dietary fiber.</li>
+                            <li>Contains antioxidants.</li>
+                            <li>Provides healthy fats.</li>
+                        </ul>
 
-                        <!-- SMALL RECIPE SUMMARY -->
+                    </div>
 
-                        <div class="recipe-summary">
+                </section>
 
-                            <div>
-                                <span>🔥</span>
-                                <strong>320 kcal</strong>
-                                <small>Per Serving</small>
-                            </div>
 
-                            <div>
-                                <span>⏱</span>
-                                <strong>25 mins</strong>
-                                <small>Total Time</small>
-                            </div>
+                <!-- SERVING SUGGESTIONS -->
 
-                            <div>
-                                <span>⭐</span>
-                                <strong>4.8/5</strong>
-                                <small>Recipe Rating</small>
-                            </div>
+                <div class="recipe-extra-card">
 
-                        </div>
+                    <h2>🍽️ Serving Suggestions</h2>
+
+                    <ul>
+                        <li>Serve fresh immediately after preparation.</li>
+                        <li>Perfect for lunch, dinner or a light meal.</li>
+                        <li>Pair with grilled vegetables or protein.</li>
+                        <li>Keep refrigerated if you want to serve it later.</li>
+                    </ul>
+
+                </div>
+
+
+                <!-- SMALL RECIPE SUMMARY -->
+
+                <div class="recipe-summary">
+
+                    <div>
+                        <span>🔥</span>
+                        <strong>320 kcal</strong>
+                        <small>Per Serving</small>
+                    </div>
+
+                    <div>
+                        <span>⏱</span>
+                        <strong>25 mins</strong>
+                        <small>Total Time</small>
+                    </div>
+
+                    <div>
+                        <span>⭐</span>
+                        <strong>4.8/5</strong>
+                        <small>Recipe Rating</small>
+                    </div>
+
+                </div>
 
         </aside>
 

@@ -79,10 +79,23 @@ def get_recipe_image(recipe_name):
     return None
 
 def get_ingredient_image(ingredient_name):
-
     ingredient_name = ingredient_name.replace(" ", "_")
 
-    return f"https://www.themealdb.com/images/ingredients/{ingredient_name}.png"
+    image_url = f"https://www.themealdb.com/images/ingredients/{ingredient_name}.png"
+
+    try:
+        response = requests.head(
+            image_url,
+            timeout=3
+        )
+
+        if response.status_code == 200:
+            return image_url
+
+    except Exception as e:
+        print("Ingredient image error:", e)
+
+    return None
 
 def get_step_image(step_title):
 
@@ -284,6 +297,26 @@ def upload():
                    name
                   description
 
+                  - Use commonly available ingredients and realistic quantities.
+                  - Cooking steps must be logically ordered and match the ingredients.
+                  - prep_time and cook_time must be realistic for the recipe.
+                  - difficulty must accurately reflect the cooking complexity.
+                  - servings must be realistic for the given ingredient quantities.
+
+                  - benefits must be specifically related to the main ingredients used in 
+                    this recipe.
+                  - Do not make exaggerated or guaranteed health claims.
+
+                  - Nutrition values are approximate estimates.
+                  - nutrition must be reasonably consistent with the ingredients and serving size.
+
+                  - tips must be practical and specifically useful for this recipe.
+                  - Do not repeat generic tips for every recipe.
+
+                  - variations must be realistic alternatives for the same main food.
+                  - similar_recipes must be genuinely related to the identified food or recipe.
+                  - Do not generate unrelated recipes just to fill the list.
+
                  Do not add any text outside the JSON.
                  Do not use Markdown.
                  """
@@ -297,29 +330,63 @@ def upload():
     
 
 
-    main_image = get_recipe_image(recipe_data["recipe_name"])
-    recipe_data["main_image"] = main_image
+    with ThreadPoolExecutor(max_workers=10) as executor:
 
-    for similar in recipe_data["similar_recipes"]:
-        image_url = get_recipe_image(similar["name"])
-        similar["image"] = image_url
+     main_future = executor.submit(
+        get_recipe_image,
+        recipe_data["recipe_name"]
+     )
 
-    for ingredient in recipe_data["ingredients"]:
-        image_url = get_ingredient_image(ingredient["name"])
-        ingredient["image"] = image_url
+     similar_futures = [
+        executor.submit(get_recipe_image, item["name"])
+        for item in recipe_data["similar_recipes"]
+     ]
 
-    for variation in recipe_data["variations"]:
-        image_url = get_recipe_image(variation["name"])
-        variation["image"] = image_url    
+     variation_futures = [
+        executor.submit(get_recipe_image, item["name"])
+        for item in recipe_data["variations"]
+     ]
 
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        step_images = executor.map(
-        lambda step: get_step_image(step["title"]),
-        recipe_data["steps"]
-    )
+     ingredient_futures = [
+        executor.submit(get_ingredient_image, item["name"])
+        for item in recipe_data["ingredients"]
+     ]
 
-    for step, image_url in zip(recipe_data["steps"], step_images):
-        step["image"] = image_url    
+     step_futures = [
+        executor.submit(get_step_image, item["title"])
+        for item in recipe_data["steps"]
+    ]
+
+
+    recipe_data["main_image"] = main_future.result()
+
+
+    for item, future in zip(
+     recipe_data["similar_recipes"],
+    similar_futures
+    ):
+    item["image"] = future.result()
+
+
+    for item, future in zip(
+    recipe_data["variations"],
+    variation_futures
+    ):
+    item["image"] = future.result()
+
+
+    for item, future in zip(
+    recipe_data["ingredients"],
+    ingredient_futures
+    ):
+    item["image"] = future.result()
+
+
+    for item, future in zip(
+    recipe_data["steps"],
+    step_futures
+    ):
+    item["image"] = future.result()
 
    
 
