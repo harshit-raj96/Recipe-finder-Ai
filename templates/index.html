@@ -65,7 +65,7 @@
                     alt="{{recipe.recipe_name}}">
 
 
-                <form action="/upload" method="POST" enctype="multipart/form-data">
+                <form id="recipeForm" action="/upload" method="POST" enctype="multipart/form-data">
 
                     <button type="button" class="hero-upload-btn" id="uploadPhotoBtn">
 
@@ -411,7 +411,7 @@
 
                         <div class="ingredient-card">
 
-                            <img src="{{ ingredient.image }}" alt="{{ ingredient.name }}">
+                            <img src="{{ ingredient.image }}" alt="{{ ingredient.name }}" onerror="this.remove()">
 
                             <div>
                                 <h3>{{ ingredient.name }}</h3>
@@ -621,6 +621,17 @@
         </button>
 
     </footer>
+
+    <!-- processing Animation code  -->
+    <div id="processingOverlay" class="processing-overlay">
+        <div class="processing-box">
+            <div class="loader"></div>
+
+            <h2>Analyzing Food...</h2>
+            <p id="processingText">Please wait while AI creates your recipe.</p>
+        </div>
+    </div>
+
 
 
     <script src="{{url_for('static',filename ='app.js')}}"></script>

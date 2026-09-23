@@ -2,4 +2,4 @@ Flask
 Pillow
 openai
 python-dotenv
-json
+requests

@@ -43,3 +43,17 @@ tabButtons.forEach(function (button) {
             .classList.add("active");
     });
 });
+
+
+//  Processing Animation  effect 
+
+const recipeForm = document.getElementById("recipeForm");
+
+const processingOverlay =
+    document.getElementById("processingOverlay");
+
+recipeForm.addEventListener("submit", function () {
+
+    processingOverlay.style.display = "flex";
+
+});

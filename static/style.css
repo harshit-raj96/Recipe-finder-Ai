@@ -1119,6 +1119,55 @@ form button[type="submit"] {
 }
 
 
+
+/* Processing Animation css */
+.processing-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(36, 151, 196, 0.361);
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.processing-box {
+    width: min(90%, 360px);
+    padding: 30px 25px;
+    background: rgb(255, 255, 255);
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+.loader {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto 18px;
+    border: 4px solid #e5e5e5;
+    border-top-color: #7b61ff;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.processing-box h2 {
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.processing-box p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
 /* =====================================================
    RESPONSIVE
 ===================================================== */

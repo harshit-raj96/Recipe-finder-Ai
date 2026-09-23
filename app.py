@@ -78,24 +78,93 @@ def get_recipe_image(recipe_name):
     # 3. dono jagh nhi mila to
     return None
 
-def get_ingredient_image(ingredient_name):
-    ingredient_name = ingredient_name.replace(" ", "_")
 
-    image_url = f"https://www.themealdb.com/images/ingredients/{ingredient_name}.png"
+# ingrediend image function 
+
+def get_ingredient_image(ingredient_name):
+
+    # 1. Pehle Pexels se real image search karo
+    url = "https://api.pexels.com/v1/search"
+
+    headers = {
+        "Authorization": os.getenv("PEXELS_API_KEY")
+    }
+
+    params = {
+        "query": ingredient_name + " ingredient food",
+        "per_page": 1
+    }
 
     try:
-        response = requests.head(
-            image_url,
+        response = requests.get(
+            url,
+            headers=headers,
+            params=params,
             timeout=3
         )
 
-        if response.status_code == 200:
-            return image_url
+        data = response.json()
+
+        if data.get("photos"):
+            print("Pexels image found:", ingredient_name)
+
+            return data["photos"][0]["src"]["medium"]
 
     except Exception as e:
-        print("Ingredient image error:", e)
+        print("Pexels ingredient error:", e)
 
-    return None
+
+    # 2. Pexels me image nahi mili
+    #    Ab AI image generate karo
+
+    print("Generating AI image:", ingredient_name)
+
+    try:
+        result = clint.images.generate(
+            model="gpt-image-2",
+            prompt=f"""
+            Create a realistic food photography image of:
+
+            {ingredient_name}
+
+            Show only the ingredient.
+            Clean light background.
+            Natural realistic appearance.
+            No text.
+            No labels.
+            No packaging.
+            Suitable for a recipe website ingredient card.
+            """,
+            size="512x512"
+        )
+
+        image_base64 = result.data[0].b64_json
+
+        image_bytes = base64.b64decode(image_base64)
+
+        os.makedirs("static/generated_ingredients", exist_ok=True)
+
+        safe_name = secure_filename(
+            ingredient_name.lower()
+        )
+
+        file_path = os.path.join(
+            "static/generated_ingredients",
+            safe_name + ".png"
+        )
+
+        with open(file_path, "wb") as image_file:
+            image_file.write(image_bytes)
+
+        print("AI image created:", ingredient_name)
+
+        return "/" + file_path.replace("\\", "/")
+
+    except Exception as e:
+        print("AI ingredient image error:", e)
+
+        return None
+
 
 def get_step_image(step_title):
 
@@ -262,10 +331,11 @@ def upload():
                  - difficulty must contain Easy, Medium, or Hard.
                  - servings must contain the serving size.
 
-                 - ingredients must be an array.
+                 - ingredients must be an array containing exactly 8 items.
                  - Each ingredient must contain:
-                 name
+                  name
                  quantity
+                 - Do not provide fewer or more than 8 ingredients.
 
                  - steps must be an array.
                  - Each step must contain:
@@ -288,7 +358,7 @@ def upload():
                  name
                  description
                  - Each variation description must be very short and clear.
-                 - Keep each variation description between 8 and 15 words.
+                 - Keep each variation description between 8 and 10 words.
                  - Describe only the main change or idea of the variation.
                  - Do not give cooking instructions, ingredient quantities, or long explanations.
 
@@ -365,28 +435,28 @@ def upload():
      recipe_data["similar_recipes"],
     similar_futures
     ):
-    item["image"] = future.result()
+     item["image"] = future.result()
 
 
     for item, future in zip(
     recipe_data["variations"],
     variation_futures
     ):
-    item["image"] = future.result()
+     item["image"] = future.result()
 
 
     for item, future in zip(
     recipe_data["ingredients"],
     ingredient_futures
     ):
-    item["image"] = future.result()
+     item["image"] = future.result()
 
 
     for item, future in zip(
     recipe_data["steps"],
     step_futures
     ):
-    item["image"] = future.result()
+     item["image"] = future.result()
 
    
 
