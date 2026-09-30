@@ -57,3 +57,14 @@ recipeForm.addEventListener("submit", function () {
     processingOverlay.style.display = "flex";
 
 });
+
+
+// try another photo per click hone per scroll behevior
+const tryAgainBtn = document.getElementById("tryAgainBtn");
+
+tryAgainBtn.addEventListener("click", function () {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});

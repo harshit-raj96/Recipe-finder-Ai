@@ -3,7 +3,7 @@ import os
 from werkzeug.utils import secure_filename
 from PIL import Image
 from dotenv import load_dotenv
-from openai import OpenAI
+from google import genai
 import base64
 import json
 import requests
@@ -14,8 +14,12 @@ from concurrent.futures import ThreadPoolExecutor
 app = Flask(__name__)
 
 load_dotenv()
-api_key = os.getenv("OPEN_API_KEY")
-clint = OpenAI(api_key=api_key)
+
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+
+gemini_client = genai.Client(
+    api_key=gemini_api_key
+)
 
 UPLOAD_FOLDER = "uploads"
 
@@ -120,7 +124,7 @@ def get_ingredient_image(ingredient_name):
     print("Generating AI image:", ingredient_name)
 
     try:
-        result = clint.images.generate(
+        result = gemini_client.images.generate(
             model="gpt-image-2",
             prompt=f"""
             Create a realistic food photography image of:
@@ -249,156 +253,143 @@ def upload():
             image_file.read()
         ).decode("utf-8")
 
-    result = clint.responses.create(
-    model="gpt-5.6-luna",
-    input=[
+
+    result = gemini_client.models.generate_content(
+    model="gemini-3.8-flash",
+        contents=[
+        "Identify the item in this image. "
+        "If the image contains a food, vegetable, or drink, "
+        "return only its name. "
+        "If the image does not contain food, vegetable, or drink, "
+        "return exactly: NOT_FOOD. "
+        "Do not provide any explanation.",
+
         {
-            "role": "user",
-            "content": [
-                {
-                    "type": "input_text",
-                   "text": """
-                   Identify the item in this image.
-
-                   If the image contains a food, vegetable, or drink,
-                   return only its name.
-
-                   If the image does not contain food, vegetable, or drink,
-                   return exactly:
-
-                   NOT_FOOD
-
-                   Do not provide any explanation.
-                   """
-                },
-                {
-                    "type": "input_image",
-                    "image_url": f"data:image/jpeg;base64,{image_data}"
-                }
-            ]
+            "inline_data": {
+                "mime_type": "image/jpeg",
+                "data": image_data
+            }
         }
     ]
 )
-    ai_result = result.output_text.strip()
+
+  
+    ai_result = result.text.strip()
     print("AI result:", ai_result)
 
     if ai_result == "NOT_FOOD":
         return " please upload a food , vegitables, or drink image "
 
-    recipe_result = clint.responses.create(
-    model="gpt-5.6-luna",
-    input=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "input_text",
-                    "text": f"""
-                 Create a complete recipe using this food:
+    recipe_result = gemini_client.models.generate_content(
+    model="gemini-3.5-flash-lite",
+    contents=f"""
+     Create a complete recipe using this food:
 
-                 {ai_result}
-                 - Choose a suitable recipe for the identified food.
-                 - Do not always choose the same recipe for the same food.
-                 - If multiple realistic recipes are possible, vary the recipe and cooking 
-                 style between requests.
-                 - Do not default to pasta or any fixed recipe.
-                 - The recipe must be realistic and appropriate for the identified food.
+    {ai_result}
 
-                 Return the answer ONLY as valid JSON.
+    - Treat the identified food as the main ingredient of the recipe, not as the final dish.
+    - Create a proper cooked, ready-to-eat dish using the identified food.
+    - The final recipe must be a real dish that a person would normally prepare and eat as a      meal,  side dish, snack, breakfast, or appetizer.
+    - Do not make the identified food itself the recipe.
+    - Do not return raw ingredients, plain chopped food, plain boiled food, or simple serving   suggestions as the main recipe.
+    - For example, if the identified food is tomato, create a proper dish such as tomato soup, tomato curry, tomato rice, tomato chutney, or another realistic tomato-based dish.
+    - The recipe should have a clear dish name that sounds like an actual food dish.
+   - Choose a suitable recipe for the identified food.
+   - Do not always choose the same recipe for the same food.
+   - If multiple realistic recipes are possible, vary the recipe and cooking style between requests.
+   - Do not default to pasta or any fixed recipe.
+    - The recipe must be realistic, appetizing, and appropriate for the identified food.
 
-                 The JSON must contain exactly these fields:
+     Return the answer ONLY as valid JSON.
 
-                 recipe_name
-                 description
-                 prep_time
-                 cook_time
-                 difficulty
-                 servings
-                 ingredients
-                 steps
-                 tips
-                 benefits
-                 nutrition
-                 variations
-                 similar_recipes
+     The JSON must contain exactly these fields:
+     recipe_name
+    description
+    prep_time
+    cook_time
+    difficulty
+    servings
+    ingredients
+    steps
+    tips
+    benefits
+    serving_suggestions
+    nutrition
+    variations
+    similar_recipes
 
-                 Rules:
+Rules:
 
-                 - recipe_name must contain the recipe name.
-                 - description must contain a short description.
-                 - prep_time must contain preparation time.
-                 - cook_time must contain cooking time.
-                 - difficulty must contain Easy, Medium, or Hard.
-                 - servings must contain the serving size.
+- recipe_name must contain the recipe name.
+- description must contain a short description.
+- prep_time must contain preparation time.
+- cook_time must contain cooking time.
+- difficulty must contain Easy, Medium, or Hard.
+- servings must contain the serving size.
 
-                 - ingredients must be an array containing exactly 8 items.
-                 - Each ingredient must contain:
-                  name
-                 quantity
-                 - Do not provide fewer or more than 8 ingredients.
+- ingredients must be an array containing exactly 8 items.
+- Each ingredient must contain:
+  name
+  quantity
+- Do not provide fewer or more than 8 ingredients.
 
-                 - steps must be an array.
-                 - Each step must contain:
-                 title
-                 description
+- steps must be an array.
+- Each step must contain:
+  title
+  description
 
-                 - tips must be an array of useful cooking tips.
+- tips must be an array of useful cooking tips.
+- benefits must be an array of health benefits.
 
-                 - benefits must be an array of health benefits.
+- nutrition must contain:
+  calories
+  protein
+  carbohydrates
+  fat
+  fiber
 
-                 - nutrition must contain:
-                  calories
-                  protein
-                  carbohydrates
-                  fat
-                  fiber
+  - serving_suggestions must be an array of practical serving suggestions specifically related to the generated recipe.
+- Each serving suggestion must describe how, when, or with what the dish can be served.
+- Serving suggestions must match the actual recipe and its ingredients.
+- Do not provide generic serving suggestions that could apply to every recipe.
+- Do not repeat the same serving suggestion multiple times.
 
-                 - variations must be an array containing exactly 4 items.
-                 - Each variation must contain:
-                 name
-                 description
-                 - Each variation description must be very short and clear.
-                 - Keep each variation description between 8 and 10 words.
-                 - Describe only the main change or idea of the variation.
-                 - Do not give cooking instructions, ingredient quantities, or long explanations.
+- variations must be an array containing exactly 4 items.
+- Each variation must contain:
+  name
+  description
+- Each variation description must be very short and clear.
+- Keep each variation description between 8 and 10 words.
+- Describe only the main change or idea of the variation.
+- Do not give cooking instructions, ingredient quantities, or long explanations.
 
-                 - similar_recipes must be an array contain exactly 5 items.
-                 - Each similar recipe must contain:
-                   name
-                  description
+- similar_recipes must be an array containing exactly 5 items.
+- Each similar recipe must contain:
+  name
+  description
 
-                  - Use commonly available ingredients and realistic quantities.
-                  - Cooking steps must be logically ordered and match the ingredients.
-                  - prep_time and cook_time must be realistic for the recipe.
-                  - difficulty must accurately reflect the cooking complexity.
-                  - servings must be realistic for the given ingredient quantities.
+- Use commonly available ingredients and realistic quantities.
+- Cooking steps must be logically ordered and match the ingredients.
+- prep_time and cook_time must be realistic for the recipe.
+- difficulty must accurately reflect the cooking complexity.
+- servings must be realistic for the given ingredient quantities.
+- benefits must be specifically related to the main ingredients used in this recipe.
+- Do not make exaggerated or guaranteed health claims.
+- Nutrition values are approximate estimates.
+- nutrition must be reasonably consistent with the ingredients and serving size.
+- tips must be practical and specifically useful for this recipe.
+- Do not repeat generic tips for every recipe.
+- variations must be realistic alternatives for the same main food.
+- similar_recipes must be genuinely related to the identified food or recipe.
+- Do not generate unrelated recipes just to fill the list.
 
-                  - benefits must be specifically related to the main ingredients used in 
-                    this recipe.
-                  - Do not make exaggerated or guaranteed health claims.
-
-                  - Nutrition values are approximate estimates.
-                  - nutrition must be reasonably consistent with the ingredients and serving size.
-
-                  - tips must be practical and specifically useful for this recipe.
-                  - Do not repeat generic tips for every recipe.
-
-                  - variations must be realistic alternatives for the same main food.
-                  - similar_recipes must be genuinely related to the identified food or recipe.
-                  - Do not generate unrelated recipes just to fill the list.
-
-                 Do not add any text outside the JSON.
-                 Do not use Markdown.
-                 """
-                }
-            ]
-        }
-    ]
+Do not add any text outside the JSON.
+Do not use Markdown.
+"""
 )
-    recipe_text = recipe_result.output_text.strip()
-    recipe_data = json.loads(recipe_text)
-    
 
+    recipe_text = recipe_result.text.strip()
+    recipe_data = json.loads(recipe_text)
 
     with ThreadPoolExecutor(max_workers=10) as executor:
 

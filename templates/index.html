@@ -464,8 +464,6 @@
                     </DIV>
                 </div>
 
-
-
                 <!-- ================= TIPS ================= -->
 
                 <div class="tab-content" id="tips">
@@ -481,42 +479,55 @@
                         </p>
 
                     </div>
+
                     <div class="tips-list">
+
                         {% for tip in recipe.tips %}
+
                         <div class="tip-card">
-                            <p> {{tip}} </p>
+
+                            <p>{{ tip }}</p>
+
                         </div>
+
                         {% endfor %}
 
-
                     </div>
-                    <!-- ================= BENEFITS ================= -->
 
-                    <div class="tab-content" id="benefits">
+                </div>
 
-                        <div class="panel-heading">
 
-                            <h2>
-                                ♡ Health Benefits
-                            </h2>
+                <!-- ================= BENEFITS ================= -->
 
-                            <p>
-                                Benefits of the ingredients
-                                used in this recipe.
-                            </p>
+                <div class="tab-content" id="benefits">
 
-                        </div>
+                    <div class="panel-heading">
+
+                        <h2>
+                            ❤️ Health Benefits
+                        </h2>
+
+                        <p>
+                            Benefits of the ingredients used in this recipe.
+                        </p>
+
                     </div>
 
                     <div class="benefits-list">
-                        {% for benefit in recipe.benefits %}
-                        <div class=" benefit-card">
-                            <p> {{ benefit}} </p>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
 
+                        {% for benefit in recipe.benefits %}
+
+                        <div class="benefit-card">
+
+                            <p>{{ benefit }}</p>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
 
                 <section class="quick-info">
 
@@ -530,10 +541,13 @@
                         </div>
 
                         <ul>
-                            <li>Use fresh vegetables for better taste.</li>
-                            <li>Adjust seasoning according to your taste.</li>
-                            <li>Add protein according to your preference.</li>
-                            <li>Lightly roast vegetables for a warm version.</li>
+
+                            {% for tip in recipe.tips %}
+
+                            <li>{{ tip }}</li>
+
+                            {% endfor %}
+
                         </ul>
 
                     </div>
@@ -549,32 +563,35 @@
                         </div>
 
                         <ul>
-                            <li>Rich in vitamins and minerals.</li>
-                            <li>Good source of dietary fiber.</li>
-                            <li>Contains antioxidants.</li>
-                            <li>Provides healthy fats.</li>
+
+                            {% for benefit in recipe.benefits %}
+
+                            <li>{{ benefit }}</li>
+
+                            {% endfor %}
+
                         </ul>
 
                     </div>
 
                 </section>
 
-
                 <!-- SERVING SUGGESTIONS -->
-
                 <div class="recipe-extra-card">
 
                     <h2>🍽️ Serving Suggestions</h2>
 
                     <ul>
-                        <li>Serve fresh immediately after preparation.</li>
-                        <li>Perfect for lunch, dinner or a light meal.</li>
-                        <li>Pair with grilled vegetables or protein.</li>
-                        <li>Keep refrigerated if you want to serve it later.</li>
+
+                        {% for suggestion in recipe.serving_suggestions %}
+
+                        <li>{{ suggestion }}</li>
+
+                        {% endfor %}
+
                     </ul>
 
                 </div>
-
 
                 <!-- SMALL RECIPE SUMMARY -->
 
@@ -628,7 +645,7 @@
             <div class="loader"></div>
 
             <h2>Analyzing Food...</h2>
-            <p id="processingText">Please wait while AI creates your recipe.</p>
+            <p id="processingText">✨ A Delicious Recipe Is on Its Way!</p>
         </div>
     </div>
 

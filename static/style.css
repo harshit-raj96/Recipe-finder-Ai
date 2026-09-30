@@ -1272,7 +1272,19 @@ form button[type="submit"] {
     .ingredients-grid {
         grid-template-columns: 1fr;
     }
+@media (max-width:750px) {
 
+    .ingredients-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .steps-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+}
 
     .quick-info {
         grid-template-columns: 1fr 1fr;
