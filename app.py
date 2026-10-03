@@ -202,11 +202,20 @@ def get_step_image(step_title):
 with open("app.json", "r", encoding="utf-8") as file:
     DEMO_RECIPE = json.load(file)
 
-# home route
+# home page
 @app.route("/")
 def home():
     print(DEMO_RECIPE)
     return render_template("index.html", recipe = DEMO_RECIPE)
+
+# features page
+@app.route("/features")
+def features():
+    return render_template("features.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 @app.route("/upload", methods=["POST"])

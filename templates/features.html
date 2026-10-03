@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RecipeAI - Features</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='features.css') }}">
+</head>
+
+<body>
+
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">♨</span>
+            <span>RecipeAI</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('features') }}">Features</a>
+            <a href="#">AI Recipe</a>
+            <a href="#">Saved</a>
+            <a href="{{url_for('about')}}">About</a>
+        </nav>
+
+        <div class="nav-actions">
+
+            <div class="search-box">
+                <input type="text" placeholder="Search recipes...">
+
+                <span>⌕</span>
+            </div>
+
+            <button class="upload-top-btn" id="topUploadBtn">
+                📷 Upload Photo
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= FEATURES PAGE ================= -->
+
+    <main>
+
+        <section class="features-page">
+
+            <div class="section-heading">
+
+                <h1>✨ RecipeAI Features</h1>
+
+                <p>
+                    Discover everything RecipeAI can do with your food photos.
+                </p>
+
+            </div>
+
+
+            <div class="features-grid">
+
+
+                <!-- FEATURE 1 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📷</div>
+
+                    <h2>Food Image Upload</h2>
+
+                    <p>
+                        Upload a photo of your food and let RecipeAI analyze it.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 2 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🤖</div>
+
+                    <h2>AI Food Identification</h2>
+
+                    <p>
+                        AI identifies the food or main ingredient from your uploaded image.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 3 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🍳</div>
+
+                    <h2>AI Recipe Generation</h2>
+
+                    <p>
+                        Generate a complete recipe based on the identified food.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 4 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🥕</div>
+
+                    <h2>Dynamic Ingredients</h2>
+
+                    <p>
+                        Get ingredients and quantities specifically generated for your recipe.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 5 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">👨‍🍳</div>
+
+                    <h2>Step-by-Step Instructions</h2>
+
+                    <p>
+                        Follow clear cooking steps with helpful images.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 6 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">💡</div>
+
+                    <h2>Cooking Tips</h2>
+
+                    <p>
+                        Get useful cooking tips to improve your recipe results.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 7 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">❤️</div>
+
+                    <h2>Health Benefits</h2>
+
+                    <p>
+                        Learn about the nutritional and health benefits of the recipe.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 8 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🍽️</div>
+
+                    <h2>Serving Suggestions</h2>
+
+                    <p>
+                        Get ideas for serving and pairing your prepared dish.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 9 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🌶️</div>
+
+                    <h2>Recipe Variations</h2>
+
+                    <p>
+                        Explore different variations that can be made using similar ingredients.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 10 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🌿</div>
+
+                    <h2>Similar Recipes</h2>
+
+                    <p>
+                        Discover other recipes similar to the generated recipe.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 11 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🖼️</div>
+
+                    <h2>Dynamic Food Images</h2>
+
+                    <p>
+                        Recipe, ingredient and cooking-step images are dynamically loaded.
+                    </p>
+
+                </div>
+
+
+                <!-- FEATURE 12 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📱</div>
+
+                    <h2>Responsive Design</h2>
+
+                    <p>
+                        Enjoy RecipeAI across desktop, tablet and mobile devices.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <p>
+            Powered by AI
+            <span>•</span>
+            Get recipes from any food photo in seconds!
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

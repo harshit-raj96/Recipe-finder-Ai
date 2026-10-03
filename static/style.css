@@ -46,7 +46,7 @@ body {
 
     top: 0;
 
-    z-index: 100;
+    z-index: 1000;
 }
 
 
@@ -211,6 +211,7 @@ body {
     gap: 22px;
 
     align-items: start;
+    animation: homeanimation 1.2s ease;
 }
 
 .left-column {
@@ -1157,6 +1158,21 @@ form button[type="submit"] {
     }
 }
 
+@keyframes homeanimation {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+}
+
 .processing-box h2 {
     margin-bottom: 8px;
     font-size: 20px;
@@ -1272,19 +1288,20 @@ form button[type="submit"] {
     .ingredients-grid {
         grid-template-columns: 1fr;
     }
-@media (max-width:750px) {
 
-    .ingredients-grid {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width:750px) {
+
+        .ingredients-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .steps-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
     }
-
-    .steps-list {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-
-}
 
     .quick-info {
         grid-template-columns: 1fr 1fr;

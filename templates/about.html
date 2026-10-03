@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About - RecipeAI</title>
+
+    <!-- Main Website CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">♨</span>
+            <span>RecipeAI</span>
+        </div>
+
+        <nav class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('features') }}">
+                Features
+            </a>
+
+            <a href="#">
+                AI Recipe
+            </a>
+
+            <a href="#">
+                Saved
+            </a>
+
+            <a href="{{ url_for('about') }}" class="active">
+                About
+            </a>
+
+        </nav>
+
+        <div class="nav-actions">
+
+            <div class="search-box">
+                <input type="text" placeholder="Search recipes...">
+                <span>⌕</span>
+            </div>
+
+            <button class="upload-top-btn" id="topUploadBtn">
+                📷 Upload Photo
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= ABOUT PAGE ================= -->
+
+    <main class="about-page">
+
+
+        <!-- ================= ABOUT WEBSITE ================= -->
+
+        <section class="about-hero">
+
+            <div class="about-hero-content">
+
+                <span class="about-label">
+                    ABOUT THE WEBSITE
+                </span>
+
+                <h1>
+                    Discover
+                    <span>RecipeAI</span>
+                </h1>
+
+                <p>
+                    RecipeAI is an AI-powered recipe discovery platform
+                    designed to make finding and exploring recipes
+                    easier, smarter and more interactive.
+                </p>
+
+                <p class="about-description">
+                    Simply upload a photo of your food and RecipeAI
+                    can analyze it and generate useful recipe information,
+                    ingredients, cooking steps and more.
+                </p>
+
+                <div class="about-buttons">
+
+                    <a href="{{ url_for('home') }}" class="about-primary-btn">
+                        <i class="fa-solid fa-utensils"></i>
+                        Explore RecipeAI
+                    </a>
+
+                    <a href="#developer" class="about-secondary-btn">
+                        Meet the Developer
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="about-hero-visual">
+
+                <div class="recipe-info-card">
+
+                    <div class="recipe-card-top">
+
+                        <div class="recipe-card-icon">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+
+                        <span>RECIPEAI</span>
+
+                    </div>
+
+
+                    <h3>
+                        Turn Food Photos
+                        <br>
+                        Into Recipes
+                    </h3>
+
+
+                    <p>
+                        Discover recipes, ingredients and
+                        cooking ideas with the help of AI.
+                    </p>
+
+
+                    <div class="recipe-mini-items">
+
+                        <div class="mini-item">
+
+                            <div class="mini-icon">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+
+                            <div>
+                                <strong>Upload</strong>
+                                <small>Food Photo</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="mini-item">
+
+                            <div class="mini-icon">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+
+                            <div>
+                                <strong>AI Analysis</strong>
+                                <small>Smart Detection</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="mini-item">
+
+                            <div class="mini-icon">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+
+                            <div>
+                                <strong>Get Recipe</strong>
+                                <small>Easy Instructions</small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="recipe-card-bottom">
+
+                        <span>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Simple
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Smart
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Useful
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= DEVELOPER ================= -->
+
+            <section class="developer-section" id="developer">
+
+                <div class="section-title">
+
+                    <span>
+                        ABOUT THE DEVELOPER
+                    </span>
+
+                    <h2>
+                        Meet the Developer
+                    </h2>
+
+                    <p>
+                        The person behind RecipeAI
+                    </p>
+
+                </div>
+
+
+                <div class="developer-card">
+
+
+                    <!-- PHOTO -->
+
+                    <div class="developer-photo-area">
+
+                        <div class="photo-ring">
+
+                            <img src="{{ url_for('static', filename='images/raj_photo.jpeg') }}" alt="Harshit Raj">
+
+                        </div>
+
+                        <div class="developer-badge">
+                            <i class="fa-solid fa-code"></i>
+                            Backend Developer
+                        </div>
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="developer-info">
+
+                        <span class="developer-small-title">
+                            HELLO, I'M
+                        </span>
+
+                        <h2>
+                            Harshit Raj
+                        </h2>
+
+                        <h3>
+                            Backend Developer
+                        </h3>
+
+                        <p>
+                            I designed and developed RecipeAI as a project
+                            to explore AI integration, backend development
+                            and modern web technologies.
+                        </p>
+
+                        <p>
+                            The idea behind RecipeAI is to create a simple
+                            and enjoyable way for people to discover recipes
+                            using food images and AI-powered technology.
+                        </p>
+
+
+                        <!-- SOCIAL LINKS -->
+
+                        <div class="developer-socials">
+
+                            <a href="https://www.linkedin.com/in/harshit-raj-23230a37b " target="_blank" class="social-link linkedin">
+
+                                <i class="fa-brands fa-linkedin-in"></i>
+
+                                <span>LinkedIn</span>
+
+                            </a>
+
+
+                            <a href="https://wa.me/7673002258" target="_blank" class="social-link whatsapp">
+
+                                <i class="fa-brands fa-whatsapp"></i>
+
+                                <span>WhatsApp</span>
+
+                            </a>
+
+
+                            <a href="mailto:harshitraj963155@gmail.com" class="social-link email">
+
+                                <i class="fa-solid fa-envelope"></i>
+
+                                <span>Email</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= FEEDBACK ================= -->
+
+            <section class="feedback-section">
+
+                <div class="feedback-heading">
+
+                    <span>
+                        FEEDBACK / ENQUIRY
+                    </span>
+
+                    <h2>
+                        We'd Love to Hear From You
+                    </h2>
+
+                    <p>
+                        Have a suggestion, feedback or enquiry about
+                        RecipeAI? Send us a message.
+                    </p>
+
+                </div>
+
+
+                <div class="feedback-card">
+
+                    <form action="#" method="POST" id="feedbackForm">
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="name">
+                                    Your Name
+                                </label>
+
+                                <div class="input-box">
+
+                                    <i class="fa-regular fa-user"></i>
+
+                                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    Your Email
+                                </label>
+
+                                <div class="input-box">
+
+                                    <i class="fa-regular fa-envelope"></i>
+
+                                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="subject">
+                                Subject
+                            </label>
+
+                            <div class="input-box">
+
+                                <i class="fa-solid fa-tag"></i>
+
+                                <input type="text" id="subject" name="subject" placeholder="What is this about?"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="message">
+                                Your Message
+                            </label>
+
+                            <div class="input-box textarea-box">
+
+                                <i class="fa-regular fa-message"></i>
+
+                                <textarea id="message" name="message" rows="6"
+                                    placeholder="Write your feedback or enquiry..." required></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit" class="send-message-btn">
+
+                            <span>
+                                Send Message
+                            </span>
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="about-footer">
+
+        <div class="footer-logo">
+
+            <span class="logo-icon">♨</span>
+
+            <span>RecipeAI</span>
+
+        </div>
+
+        <p>
+            AI • Recipes • Better Cooking
+        </p>
+
+        <div class="footer-line"></div>
+
+        <span class="footer-credit">
+            Made with ❤️ by Harshit Raj
+        </span>
+
+        <span class="footer-copy">
+            © 2026 RecipeAI. All rights reserved.
+        </span>
+
+    </footer>
+
+
+
+    <!-- ================= SUCCESS POPUP ================= -->
+
+    <div class="feedback-popup" id="feedbackPopup">
+
+        <div class="popup-box">
+
+            <button class="popup-close" id="popupClose">
+                ×
+            </button>
+
+            <div class="popup-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <h3>
+                Message Sent!
+            </h3>
+
+            <p>
+                Thank you for your feedback.
+                We appreciate your message.
+            </p>
+
+            <button class="popup-ok" id="popupOk">
+                Okay
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* Developer / Section reveal */
+
+        const revealElements =
+            document.querySelectorAll(
+                ".about-hero, .developer-section, .feedback-section"
+            );
+
+        const revealObserver =
+            new IntersectionObserver(
+                function (entries) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add("show");
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        revealElements.forEach(function (element) {
+
+            revealObserver.observe(element);
+
+        });
+
+
+
+        /* Feedback popup */
+
+        const feedbackForm =
+            document.getElementById("feedbackForm");
+
+        const feedbackPopup =
+            document.getElementById("feedbackPopup");
+
+        const popupClose =
+            document.getElementById("popupClose");
+
+        const popupOk =
+            document.getElementById("popupOk");
+
+
+        feedbackForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            feedbackPopup.classList.add("active");
+
+        });
+
+
+        popupClose.addEventListener("click", function () {
+
+            feedbackPopup.classList.remove("active");
+
+        });
+
+
+        popupOk.addEventListener("click", function () {
+
+            feedbackPopup.classList.remove("active");
+
+            feedbackForm.reset();
+
+        });
+
+
+        /* Close popup by clicking outside */
+
+        feedbackPopup.addEventListener("click", function (event) {
+
+            if (event.target === feedbackPopup) {
+
+                feedbackPopup.classList.remove("active");
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
