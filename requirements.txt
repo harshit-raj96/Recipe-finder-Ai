@@ -1,5 +1,6 @@
 Flask
+google-genai
 Pillow
-openai
 python-dotenv
 requests
+gunicorn
