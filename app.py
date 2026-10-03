@@ -8,6 +8,7 @@ import base64
 import json
 import requests
 from concurrent.futures import ThreadPoolExecutor
+import random
 
 
 
@@ -39,11 +40,11 @@ def get_recipe_image(recipe_name):
     headers = {
         "Authorization": os.getenv("PEXELS_API_KEY")
     }
-
     params = {
-        "query": recipe_name + " food",
-        "per_page": 1
-    }
+    "query": recipe_name + " finished cooked food dish",
+    "per_page": 5
+}
+  
 
     try:
         response = requests.get(
@@ -56,7 +57,10 @@ def get_recipe_image(recipe_name):
         data = response.json()
 
         if data.get("photos"):
-            return data["photos"][0]["src"]["large"]
+            photo = random.choice(data["photos"])
+            return photo["src"]["large"]
+
+            
 
     except Exception as e:
         print("Pexels error:", e)
@@ -263,25 +267,31 @@ def upload():
         ).decode("utf-8")
 
 
-    result = gemini_client.models.generate_content(
-    model="gemini-3.8-flash",
+    try:
+
+       result = gemini_client.models.generate_content(
+        model="gemini-3.6-flash",
         contents=[
-        "Identify the item in this image. "
-        "If the image contains a food, vegetable, or drink, "
-        "return only its name. "
-        "If the image does not contain food, vegetable, or drink, "
-        "return exactly: NOT_FOOD. "
-        "Do not provide any explanation.",
+            "Identify the item in this image. "
+            "If the image contains a food, vegetable, or drink, "
+            "return only its name. "
+            "If the image does not contain food, vegetable, or drink, "
+            "return exactly: NOT_FOOD. "
+            "Do not provide any explanation.",
 
-        {
-            "inline_data": {
-                "mime_type": "image/jpeg",
-                "data": image_data
+            {
+                "inline_data": {
+                    "mime_type": "image/jpeg",
+                    "data": image_data
+                }
             }
-        }
-    ]
-)
+        ]
+    )
 
+    except Exception as e:
+        print("Gemini error:", e)
+
+        return "Sorry! Our AI service is temporarily busy. Please try again after a moment."
   
     ai_result = result.text.strip()
     print("AI result:", ai_result)
@@ -327,8 +337,6 @@ def upload():
     variations
     similar_recipes
 
-Rules:
-
 - recipe_name must contain the recipe name.
 - description must contain a short description.
 - prep_time must contain preparation time.
@@ -336,11 +344,11 @@ Rules:
 - difficulty must contain Easy, Medium, or Hard.
 - servings must contain the serving size.
 
-- ingredients must be an array containing exactly 8 items.
+- ingredients must be an array containing exactly 6 items.
 - Each ingredient must contain:
   name
   quantity
-- Do not provide fewer or more than 8 ingredients.
+- Do not provide fewer or more than 6 ingredients.
 
 - steps must be an array.
 - Each step must contain:
@@ -364,13 +372,18 @@ Rules:
 - Do not repeat the same serving suggestion multiple times.
 
 - variations must be an array containing exactly 4 items.
-- Each variation must contain:
+- Each variation must be an object containing exactly:
   name
-  description
-- Each variation description must be very short and clear.
-- Keep each variation description between 8 and 10 words.
-- Describe only the main change or idea of the variation.
-- Do not give cooking instructions, ingredient quantities, or long explanations.
+  
+- Every variation must remain a variation of the original recipe.
+- Every variation must use the same main food as the original recipe.
+- Keep the variation within the same dish category.
+- Each variation must be a complete prepared dish name.
+- Only change one or two aspects such as spice level, cooking method, texture, or one supporting ingredient.
+- Keep the main food clearly present in every variation.
+- Do not suggest unrelated dishes.
+- Do not use abstract names such as "Spicy Heat", "Tomato Rich", "Nutty Crunch", or "Lentil Twist".
+
 
 - similar_recipes must be an array containing exactly 5 items.
 - Each similar recipe must contain:
@@ -391,6 +404,17 @@ Rules:
 - variations must be realistic alternatives for the same main food.
 - similar_recipes must be genuinely related to the identified food or recipe.
 - Do not generate unrelated recipes just to fill the list.
+
+IMAGE RELEVANCE RULES:
+
+- Every main recipe, variation, and similar recipe represents a different finished dish.
+- Each image must visually represent the specific dish name.
+- Variation images must represent that specific variation, not the original recipe.
+- Similar recipe images must represent the specific similar recipe.
+- Prefer realistic photos of fully cooked and served dishes.
+- Do not use raw ingredients, ingredient-only photos, abstract food images, or ingredient collages.
+- If an exact dish photo is unavailable, use a closely related finished dish photo.
+- Never intentionally use the same image for multiple different dishes.
 
 Do not add any text outside the JSON.
 Do not use Markdown.
