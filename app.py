@@ -33,57 +33,66 @@ ALLOWED_EXTENSIONS = {
     "webp"
 }
 
+# recipe image 
+
 def get_recipe_image(recipe_name):
-    # search on  Pexels 
     url = "https://api.pexels.com/v1/search"
 
     headers = {
         "Authorization": os.getenv("PEXELS_API_KEY")
     }
+
+    # Search for a finished, homemade, ready-to-eat dish
+
+    
     params = {
-    "query": recipe_name + " finished cooked food dish",
-    "per_page": 5
+    "query": f"delicious homemade {recipe_name} fully cooked finished dish beautifully plated food photography",
+    "per_page": 10
 }
-  
+   
 
     try:
         response = requests.get(
             url,
             headers=headers,
             params=params,
-            timeout=3
+            timeout=15
         )
 
+        response.raise_for_status()
         data = response.json()
 
-        if data.get("photos"):
-            photo = random.choice(data["photos"])
+        photos = data.get("photos", [])
+
+        if photos:
+            # Choose a photo from the relevant search results
+            photo = random.choice(photos)
             return photo["src"]["large"]
 
-            
-
     except Exception as e:
-        print("Pexels error:", e)
+        print("Pexels recipe image error:", e)
 
-    # 2. Pexels me nhi mila to  TheMealDB
+    # Fallback: Search TheMealDB
     try:
         url = "https://www.themealdb.com/api/json/v1/1/search.php"
 
         response = requests.get(
             url,
             params={"s": recipe_name},
-            timeout=3
+            timeout=15
         )
 
+        response.raise_for_status()
         data = response.json()
 
-        if data.get("meals"):
-            return data["meals"][0].get("strMealThumb")
+        meals = data.get("meals")
+
+        if meals:
+            return meals[0].get("strMealThumb")
 
     except Exception as e:
         print("TheMealDB error:", e)
 
-    # 3. dono jagh nhi mila to
     return None
 
 
@@ -108,7 +117,7 @@ def get_ingredient_image(ingredient_name):
             url,
             headers=headers,
             params=params,
-            timeout=3
+            timeout=15
         )
 
         data = response.json()
@@ -191,7 +200,7 @@ def get_step_image(step_title):
         url,
         headers=headers,
         params=params,
-        timeout=3
+        timeout=15
     )
 
     data = response.json()
@@ -306,8 +315,20 @@ def upload():
 
     {ai_result}
 
-    - Treat the identified food as the main ingredient of the recipe, not as the final dish.
-    - Create a proper cooked, ready-to-eat dish using the identified food.
+    - Generate a realistic, delicious homemade dish using the identified food as the main ingredient.
+    - Choose a suitable recipe based on the identified food; never default to a fixed dish or cooking style.
+    - The finished dish must be fully cooked, appetizing, and ready to eat.
+    - Use suitable spices, seasonings, sauces, or gravy when appropriate.
+     - Show realistic cooked textures, natural colours, and a properly prepared finished dish.
+     - Prefer natural food photographs showing the complete dish attractively served on a plate, bowl, or suitable serving dish.
+     - The image must match the actual recipe name and its ingredients. 
+     - Every variation and similar recipe must have an image relevant to its own finished dish. 
+    - Never intentionally reuse the same image for different dishes.
+     - Avoid raw ingredients, plain unseasoned vegetables, and unrelated food photographs.
+    
+
+
+
     - The final recipe must be a real dish that a person would normally prepare and eat as a      meal,  side dish, snack, breakfast, or appetizer.
     - Do not make the identified food itself the recipe.
     - Do not return raw ingredients, plain chopped food, plain boiled food, or simple serving   suggestions as the main recipe.
