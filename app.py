@@ -334,15 +334,19 @@ def upload():
     - Do not return raw ingredients, plain chopped food, plain boiled food, or simple serving   suggestions as the main recipe.
     - For example, if the identified food is tomato, create a proper dish such as tomato soup, tomato curry, tomato rice, tomato chutney, or another realistic tomato-based dish.
     - The recipe should have a clear dish name that sounds like an actual food dish.
-   - Choose a suitable recipe for the identified food.
-    - You may suggest the same recipe again for the same identified food.
-- Do not force a new recipe on every upload.
-- Prefer a suitable, realistic recipe with a relevant image over generating a different recipe unnecessarily.
-- Generate a different recipe only when it is genuinely suitable and offers useful variety.
-- Recipe quality and image relevance are more important than recipe uniqueness.
+    - Choose a suitable recipe based on the identified food.
+- Prefer proper homemade meals and traditional cooked dishes.
+- For vegetables, prioritize sabzi, curry, masala, stir-fry,
+  dry fry, and gravy-based dishes.
+- Prefer dishes normally eaten with roti, chapati, or rice.
+- Do not default to soup, juice, smoothie, or salad.
+- Generate soup or snack recipes only when genuinely suitable.
+- For cauliflower, consider Aloo Gobi, Gobi Masala,
+  Gobi Matar, Gobi Do Pyaza, or Gobi Fry.
+- Keep the identified food as the main ingredient.
 - Do not default to pasta or any fixed recipe.
-- The recipe must be realistic, appetizing, and appropriate for the identified food.
-    - The recipe must be realistic, appetizing, and appropriate for the identified food.
+- The recipe must be realistic, appetizing, and appropriate
+  for the identified food.
 
      Return the answer ONLY as valid JSON.
 
