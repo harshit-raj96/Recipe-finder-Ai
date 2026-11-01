@@ -8,7 +8,7 @@ Get ingredients, step-by-step cooking instructions, cooking tips, health benefit
 
 ## 🖥️ Homepage Preview
 
-![RecipeAI Homepage](screenshots/home.png)
+![RecipeAI Homepage](home.jpg.png)
 
 ---
 
@@ -163,7 +163,7 @@ A valid Gemini API key is required to access AI functionality.
 
 🚀 **Explore RecipeAI:**
 
-[![Live Website]()](https://recipe-finder-ai.onrender.com/)
+[![https://recipe-finder-ai.onrender.com/](https://recipe-finder-ai.onrender.com/)
 
 Experience AI-powered recipe generation by uploading a food image!
 
